@@ -1,20 +1,18 @@
-#include<iostream>
-#include <vector>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-bool issafe(vector<vector<int> > &visit , vector<vector<int> > &m , int ix , int iy ,int n ){
+    bool issafe(vector<vector<int>> &visit , vector<vector<int>> &m , int ix , int iy ,int n ){
 
-    if((ix< n && ix>=0) && (iy<n && iy>=0) && visit[ix][iy]==0 && m[ix][iy]==0){
-        return true;
+        if((ix< n && ix >=0) && (iy< n && iy>=0) && visit[ix][iy]==0 && m[ix][iy]==1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
-    else{
-        return false;
-    }
-}
 void puzzle(vector<vector<int> > &m , int n ,vector<string>& ans,int srcx , int srcy, string path, vector<vector<int> > &visit){
     
     //base case
-    if(srcx >=n-1 && srcy >=n-1){
+    if(srcx ==n-1 && srcy == n-1){
         ans.push_back(path);
         return; 
     }
@@ -57,6 +55,8 @@ void puzzle(vector<vector<int> > &m , int n ,vector<string>& ans,int srcx , int 
         path.pop_back();
     }
 
+    visit[srcx][srcy]=0;
+
 }
 
 
@@ -78,7 +78,7 @@ int main (){
         cout<<endl;
     }
 
-    vector<vector<int> > visit = m;
+    vector<vector<int>> visit = m;
     for(int i =0;i<n ;i++){
         for(int j = 0; j<n ; j++){
             visit[i][j]=0;
@@ -88,7 +88,9 @@ int main (){
     int srcy = 0;
     
     string path ="";
+
     puzzle(m, n , ans , srcx , srcy , path , visit);
+    
     sort(ans.begin(),ans.end());
     for(auto i : ans){
         cout<<i<<" ";

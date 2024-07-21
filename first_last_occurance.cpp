@@ -1,40 +1,75 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
-void first_last(int arr[],int target){
-    int s= 0;
-    int e = 5;
-    int mid=s+(e-s)/2;
-    vector<int> ans;
-    while(s<e){
-        if(arr[mid]>target){
-            
-            for(int i =mid+1; i<e;i++){
-                if(arr[i]==target){
-                    ans.push_back(i);
-                }
-            }
-            s=mid+1;
-        }
-        else{
-            cout<<mid<<endl;
-            for(int i = 0; i<mid-1; i++){
-                if(arr[i]==target){
-                    ans.push_back(i);
-                }
-            }
-            e=mid-1;
-        }
-        mid=s+(e-s)/2;
+
+class Hero {
+    private:
+    int age;
+
+    public:
+    int health;
+    char *naam;
+    char name;
+
+    // Parameterized constructor
+    Hero(int age) {
+        cout << "Address of the age: " << this << endl;
+        this->age = age;
     }
-    // for(int i=0;i<1;i++){
-    //     cout<<ans[i]<<" ";
-    // }
 
-}
-int main (){
-    int arr[6]={5,7,7,8,8,10};
-    first_last(arr,8);
+    Hero(int health, char name) {
+        this->health = health;
+        this->name = name;
+    }
 
+    Hero() {
+        naam = new char[20];
+    }
+
+    // Deep copy constructor
+    Hero(const Hero& Nina) {
+        char *ch = new char[strlen(Nina.naam) + 1];
+        strcpy(ch, Nina.naam);
+        this->naam = ch;
+        this->health = Nina.health;
+        this->name = Nina.name;
+        this->age = Nina.age;
+    }
+
+    ~Hero() {
+        delete[] naam;
+    }
+
+    int getage() {
+        return age;
+    }
+
+    void setage(int a) {
+        age = a;
+    }
+
+    void setnaam(const char naam[]) {
+        strcpy(this->naam, naam);
+    }
+
+    void print() {
+        cout << "Name is: " << this->naam << endl;
+    }
+};
+
+int main() {
+    Hero Paul;
+    char naam[7] = "Aniket";
+
+    Paul.setnaam(naam);
+    Paul.print();
+
+    Hero Tiger(Paul); // copied properties of Paul (object) in Tiger (another object)
+    Tiger.print();
+
+    Paul.naam[0] = 'T';
+
+    Paul.print();
+    Tiger.print(); // This should now correctly show the names without affecting each other
+
+    return 0;
 }
-//[5,7,7,8,8,10]
