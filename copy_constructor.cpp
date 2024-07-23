@@ -8,6 +8,7 @@ class Hero{
     int health;
     char *naam;
     char name;
+    static int TimeToComplete;
 
     //parameterized constructor
     Hero(int age){
@@ -24,7 +25,7 @@ class Hero{
     Hero(){
         naam = new char[20];
     }
-
+    // deep copy ho gayi hai , isme naya array hi bana diya hai 
     Hero( Hero& Nina ){
 
         char *ch = new char(strlen(Nina.naam)+1);
@@ -52,6 +53,10 @@ class Hero{
 
 };
 
+// mast class ke bahar access karo isko 
+int Hero::TimeToComplete=50; 
+// class name // scope resolution operator // static wale ka naam // value 
+
 int main(){
 
     Hero Paul;
@@ -72,6 +77,8 @@ int main(){
     Tiger.print();// change to sirf paul me kiya tiger me kyun hua toh karan hai shallow copy 
     // arthat ye ki ek hi memory do naam se call ho rahi hai 
     // koi nayi memory tiger ke liye allot nahi ho rahi hai 
+
+    cout<<Hero::TimeToComplete<<endl;
 
 
 }
