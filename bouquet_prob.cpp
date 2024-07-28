@@ -15,7 +15,7 @@ int main() {
         vector<int> flowers(n);
         for (long long i = 0; i < n; i++) {
             cin >> flowers[i];
-        }
+        }   
 
         sort(flowers.begin(), flowers.end());
 
