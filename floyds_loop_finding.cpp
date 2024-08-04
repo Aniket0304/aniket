@@ -1,90 +1,83 @@
-#include<iostream> 
+#include<iostream>
 using namespace std;
-class Node{
-    public :
-    int data; 
-    Node* next;
 
-    Node( int d ){
-        
-        this -> data = d;
+class Node {
+    public :
+
+    int data;
+    Node *next;
+
+    Node(int data) {
+        this -> data = data;
         this -> next = NULL;
     }
-
 };
 
-void insertatposition(Node* &tail, int element , int d ){
 
-    // if the linked list is empty
-    if( tail == NULL){
-        Node* temp = new Node(d);
-        temp -> next = temp;
-        tail = temp;
-    }
-    
-    else{
-        // there is some element if present insert a node after that
-        Node* curr = tail;
-        curr = curr -> next ;
-        while(curr -> data!= element ){
-            curr = curr-> next;
-        }
+Node* floydDetectLoop(Node* head) {
 
-        // adding 
-        Node*temp = new Node(d);
-        temp -> next = curr -> next ;
-        curr-> next = temp;
-    }
-}
+    if(head == NULL)
+        return NULL;
 
-void floysloopfinding(Node* &tail ){
-    Node* slow = tail ;
-    Node* fast = tail;
-    while ( fast!= NULL && slow != NULL){
-        fast = fast -> next; 
-        if( fast != NULL){
-            fast = fast -> next ;
-        }
-        slow = slow -> next;
+    Node* slow = head;
+    Node* fast = head;
+
+    while(slow != NULL && fast !=NULL) {
         
-        if(fast == slow ){
-            cout<< " the intersection point is "<< slow -> data<< endl;
-            break;
+        fast = fast -> next;
+        if(fast != NULL) {
+            fast = fast -> next;
+        }
+
+        slow = slow -> next;
+
+        if(slow == fast) {
+            return slow;
         }
     }
-}
 
-void print(Node* tail ){
-    Node* temp = tail;
-    do{
-        cout<< tail-> data << " ";
-        tail = tail-> next;
-    }while(tail != temp);
-    cout<<endl;
-}
-
-int main(){
-    Node* tail = NULL;
-
-    insertatposition(tail , 3 , 20);
-    print (tail);
-
-    insertatposition(tail , 20 , 10);
-    print (tail);
-
-    insertatposition(tail , 10 , 80);
-    print (tail);
-
-    insertatposition(tail , 80 , 40);
-    print (tail);
-
-    insertatposition(tail , 40 , 50);
-    print (tail);
-
-    insertatposition(tail , 50 , 12);
-    print (tail);
-
-    floysloopfinding( tail );
-    print (tail);
+    return NULL;
 
 }
+
+Node* getStartingNode(Node* head) {
+
+    if(head == NULL) 
+        return NULL;
+
+    Node* intersection = floydDetectLoop(head);
+    
+    if(intersection == NULL)
+        return NULL;
+    
+    Node* slow = head;
+
+    while(slow != intersection) {
+        slow = slow -> next;
+        intersection = intersection -> next;
+    }  
+
+    return slow;
+
+}
+
+Node *removeLoop(Node *head)
+{
+    if( head == NULL)
+        return NULL;
+
+    Node* startOfLoop = getStartingNode(head);
+    
+    if(startOfLoop == NULL)
+        return head;
+    
+    Node* temp = startOfLoop;
+
+    while(temp -> next != startOfLoop) {
+        temp = temp -> next;
+    } 
+
+    temp -> next = NULL;
+    return head;
+}
+

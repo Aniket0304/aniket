@@ -63,7 +63,7 @@ void print(Node* &head){
     cout<< endl;
 }
 
-void insertatposition(Node* &head,int position, int d){
+void insertatposition(Node* &head, int position, int d){
     if(position == 1){
         insertathead(head,d);
         return ;
@@ -71,7 +71,7 @@ void insertatposition(Node* &head,int position, int d){
 
     Node* temp = head;
     int count = 1;
-    while(count <position-1){
+    while(count < position-1){
         temp  = temp -> next;
         count++;
     }
@@ -101,7 +101,7 @@ int main(){
     insertattail(tail,30);
     print(head);
 
-    insertatposition(head, 1, 80);
+    insertatposition(head, 2, 80);
     print(head);
 
     deletethenode(head, 3);
